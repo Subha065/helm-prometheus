@@ -755,6 +755,8 @@ alertmanager:
 grafana:
   enabled: true
   namespaceOverride: ""
+  service:
+    type: LoadBalancer
 
   ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
   ##
@@ -776,8 +778,7 @@ grafana:
   adminPassword: prom-operator
   nodeSelector: 
     agentpool: linux101
-  service:
-    type: LoadBalancer
+
 
   rbac:
     ## If true, Grafana PSPs will be created
