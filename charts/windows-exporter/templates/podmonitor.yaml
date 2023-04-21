@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: windows-exporter-podmonitor
+  labels:
+    app: windows-exporter
+spec:
+  selector:
+    matchLabels:
+      app: windows-exporter
+  namespaceSelector:
+    matchNames:
+      - monitoring
+      - default
+  podMetricsEndpoints:
+  - interval: 30s
+    port: http
+    scheme: http

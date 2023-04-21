@@ -16,3 +16,6 @@ service:
   name: windows-exporter-service
   port: 9182
   targetPort: 9182
+
+podMonitor:
+  enabled: true

@@ -5,6 +5,9 @@ metadata:
     app: {{ template "windows-exporter.name" . }}
   name: {{ template "windows-exporter.name" . }}
   namespace: {{ .Values.namespace }}
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port: '9182'
 spec:
   selector:
     matchLabels:
@@ -13,6 +16,9 @@ spec:
     metadata:
       labels:
         app: {{ template "windows-exporter.name" . }}
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '9182'
     spec:
       securityContext:
         windowsOptions:
