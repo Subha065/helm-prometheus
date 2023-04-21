@@ -756,7 +756,10 @@ grafana:
   enabled: true
   namespaceOverride: ""
   service:
+    enabled: true
     type: LoadBalancer
+    port: 80
+    targetPort: 3000
 
   ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
   ##
