@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: {{ template "windows-exporter.name" . }}
+  name: {{ template "windows-exporter.name" . }}
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ template "windows-exporter.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "windows-exporter.name" . }}
+    spec:
+      securityContext:
+        windowsOptions:
+          hostProcess: true
+          runAsUserName: "NT AUTHORITY\\system"
+      hostNetwork: true
+      containers:
+      - args: 
+        - --config.file=%CONTAINER_SANDBOX_MOUNT_POINT%/config.yml
+        name: windows-exporter
+        image: {{ .Values.windowsExporter.image.repository }}:{{ .Values.windowsExporter.image.tag }}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9182
+          hostPort: 9182
+          name: http
+        volumeMounts:
+        - name: windows-exporter-config
+          mountPath: /config.yml
+          subPath: config.yml
+      nodeSelector:
+        kubernetes.io/os: windows
+      volumes:
+      - name: windows-exporter-config
+        configMap:
+          name: {{ template "windows-exporter.name" . }}-config
