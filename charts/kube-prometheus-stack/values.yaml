@@ -758,8 +758,6 @@ grafana:
   service:
     enabled: true
     type: LoadBalancer
-    port: 80
-    targetPort: 3000
 
   ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
   ##
@@ -2279,7 +2277,7 @@ prometheus:
 
     ## Service type
     ##
-    type: ClusterIP
+    type: LoadBalancer
 
     ## gRPC port config
     portName: grpc
