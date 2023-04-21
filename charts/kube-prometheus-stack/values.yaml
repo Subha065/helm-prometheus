@@ -2291,7 +2291,6 @@ prometheus:
 
     ## ClusterIP to assign
     # Default is to make this a headless service ("None")
-    clusterIP: "None"
 
     ## Port to expose on each node, if service type is NodePort
     ##
